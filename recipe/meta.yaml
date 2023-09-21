@@ -10,27 +10,37 @@ source:
   sha256: 48a06980661908efe8d9d34eab2b6c13aefa2163b3ced26972902e3bdfd87008
 
 build:
-  noarch: python
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
+  skip: True  # [py<37]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
     - python
     - pip
+    - setuptools
+    - wheel
   run:
     - python
 
 test:
   imports:
     - stringcase
+  requires: 
+    - pip
+  commands: 
+    - pip check
 
 about:
   home: https://github.com/okunishinishi/python-stringcase
+  dev_url: https://github.com/okunishinishi/python-stringcase
+  doc_url: https://github.com/okunishinishi/python-stringcase
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'Convert string cases between camel case, pascal case, snake case etc...'
+  summary: Convert string cases between camel case, pascal case, snake case etc.
+  description: |
+    Convert string cases between camel case, pascal case, snake case etc...
 
 extra:
   recipe-maintainers:
